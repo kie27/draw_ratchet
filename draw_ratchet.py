@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #
 # Copyright (C) 2016 Kie Brooks
 # Distributed under GPLv3 or later.
@@ -33,15 +33,14 @@
 # see file draw_ratch.inx
 # (directory ~/.config/inkscape/extensions/)
 
-import inkex, simplestyle
+import inkex
 import math
 from lxml import etree
 
 Line_style =   { 'stroke'        : '#000000',
-                 'stroke-width'  : '0.5px',
+                 'stroke-width'  : self.svg.unittouu(str(0.1) + "mm"),
                  'fill'          : 'none' }
 
-### SVG shape helpers
 def draw_SVG_circle(parent, r, cx, cy, name, style):
     " structure an SVG circle entity under parent "
     circ_attribs = {'style': str(inkex.Style(style)),
@@ -50,27 +49,17 @@ def draw_SVG_circle(parent, r, cx, cy, name, style):
                     inkex.addNS('label','inkscape'): name}
     circle = etree.SubElement(parent, inkex.addNS('circle','svg'), circ_attribs )
 
-###
 class Ratchet(inkex.Effect):
 
     def __init__(self):
         inkex.Effect.__init__(self)
-        self.arg_parser.add_argument("--centre_hole",      action="store", type=inkex.Boolean,
-                                  dest="centre_hole",      default=True, help="Show or not")
-        self.arg_parser.add_argument("--teeth",            action="store", type=int,
-                                  dest="teeth",            default=12, help="Number of teeth around outside")
-        self.arg_parser.add_argument("--centre_hole_diam", action="store", type=float,
-                                  dest="centre_hole_diam", default=1, help="Dia of central hole")
-        self.arg_parser.add_argument("--diam_in",          action="store", type=float,
-                                  dest="diam_in",          default=28, help="Inner diamter of the Ratchet")
-        self.arg_parser.add_argument("--diam_out",         action="store", type=float,
-                                  dest="diam_out",         default=30, help="Outer diamter of the Ratchet")
-        self.arg_parser.add_argument('--vtooth_shape',     action='store', type=str,
-                                  dest='vtooth_shape',     default='straight', help="Shape of tooth")
-        self.arg_parser.add_argument('--htooth_shape',     action='store', type=str,
-                                  dest='htooth_shape',     default='curve', help="Shape of tooth")
-
-
+        self.arg_parser.add_argument("--centre_hole", type=inkex.Boolean, default=True, help="Show or not")
+        self.arg_parser.add_argument("--teeth", type=int, default=12, help="Number of teeth around outside")
+        self.arg_parser.add_argument("--centre_hole_diam", type=float, default=1, help="Dia of central hole")
+        self.arg_parser.add_argument("--diam_in", type=float, default=28, help="Inner diamter of the Ratchet")
+        self.arg_parser.add_argument("--diam_out", type=float, default=30, help="Outer diamter of the Ratchet")
+        self.arg_parser.add_argument('--vtooth_shape', default='straight', help="Shape of tooth")
+        self.arg_parser.add_argument('--htooth_shape', default='curve', help="Shape of tooth")
 
     def effect(self):
         # sort out the options
@@ -125,6 +114,5 @@ class Ratchet(inkex.Effect):
         line_attribs['d'] = path
         etree.SubElement(grp, inkex.addNS('path','svg'), line_attribs )
 
-
-effect = Ratchet()
-effect.run()	
+if __name__ == "__main__":
+    Ratchet().run()	

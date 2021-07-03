@@ -19,43 +19,39 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-  <_name>Ratchet</_name>
-  <id>ratchet</id>
-  <dependency type="executable" location="extensions">draw_ratchet.pl</dependency>
-
-  <param name="teeth" type="int" min="2" max="300" _gui-text="Number of teeth">12</param>
-  <param name="centre_hole" type="boolean" _gui-text="Centre hole">true</param>
-  <param name="centre_hole_diam" type="float" precision="3" min="0" max="50" _gui-text="Centre hole size">1.000</param>
-  <!-- <param name="name" type="boolean" gui-text="Live preview">false</param>-->
-
-  <param name="diam_in" type="float" precision="3" min="0" max="200" _gui-text="Outside diameter">30.000</param>
-  <param name="diam_out" type="float" precision="3" min="0" max="200" _gui-text="Inside diameter">28.000</param>
-
-  <param name="vtooth_shape" type="optiongroup" _gui-text="Vertical tooth line:">
-    <option value="straight">straight</option>
-    <option value="curve">curve</option>
-  </param>
-    <param name="htooth_shape" type="optiongroup" _gui-text="Horizontal tooth line:">
-    <option value="straight">straight</option>
-    <option value="curve">curve</option>
+    <_name>Ratchet</_name>
+    <id>ratchet</id>
+    <dependency type="executable" location="extensions">ratchet.py</dependency>
+    <param name="teeth" type="int" min="2" max="300" _gui-text="Number of teeth">12</param>
+    <param name="centre_hole" type="boolean" _gui-text="Centre hole">true</param>
+    <param name="centre_hole_diam" type="float" precision="3" min="0" max="50" _gui-text="Centre hole size">1.000</param>
+    <param name="diam_in" type="float" precision="3" min="0" max="200" _gui-text="Outside diameter">30.000</param>
+    <param name="diam_out" type="float" precision="3" min="0" max="200" _gui-text="Inside diameter">28.000</param>
+    <param name="vtooth_shape" type="optiongroup" _gui-text="Vertical tooth line:">
+        <option value="straight">straight</option>
+        <option value="curve">curve</option>
     </param>
-
-  <_param name="header_description" type="description" appearance="header">Author / License</_param>
-  <_param name="some_description" type="description" xml:space="preserve">  written by Kie (inkscape@kitamura-studios.com)
+    <param name="htooth_shape" type="optiongroup" _gui-text="Horizontal tooth line:">
+        <option value="straight">straight</option>
+        <option value="curve">curve</option>
+    </param>
+    <_param name="header_description" type="description" appearance="header">Author / License</_param>
+    <_param name="some_description" type="description" xml:space="preserve">  written by Kie (inkscape@kitamura-studios.com)
   Draw Ratchet Copyright (C) 2016 Kie Brooks
   Distributed under GPLv3 or later
 
   This is a simple extension to save time drawing ratchets.
   </_param>
-
-  <!-- classify which menu it appears under - can be new name -->
-  <effect>
-    <object-type>all</object-type>
-    <effects-menu>
-      <submenu _name="Render"/> <!-- which menu under Extensions -->
-    </effects-menu>
-  </effect>
-  <script>
-	<command reldir="extensions" interpreter="perl">draw_ratchet.pl</command>
-  </script>
+    <!-- classify which menu it appears under - can be new name -->
+    <effect>
+        <object-type>path</object-type>
+        <effects-menu>
+            <submenu _name="FabLab Chemnitz">
+				<submenu _name="Gears"/>
+			</submenu>
+        </effects-menu>
+    </effect>
+    <script>
+        <command reldir="extensions" interpreter="python">ratchet.py</command>
+    </script>
 </inkscape-extension>
